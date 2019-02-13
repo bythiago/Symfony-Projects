@@ -1,0 +1,4 @@
+employees:
+    resource: "@EmployeesBundle/Controller/"
+    type:     annotation
+    prefix:   /

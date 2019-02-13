@@ -1,0 +1,31 @@
+<table border="1">
+	<tr>
+		<td>id</td>
+		<td>birthDate</td>
+		<td>firstName</td>
+		<td>lastName</td>
+		<td>gender</td>
+		<td>hireDate</td>
+	</tr>
+	{% if employees is iterable %}
+		{% for employee in employees %}
+		<tr>
+			<td>{{employee.id}}</td>
+			<td>{{employee.birthDate}}</td>
+			<td>{{employee.firstName}}</td>
+			<td>{{employee.lastName}}</td>
+			<td>{{employee.gender}}</td>
+			<td>{{employee.hireDate}}</td>
+		</tr>
+		{% endfor %}
+	{% else %}
+		<tr>
+			<td>{{employees.id}}</td>
+			<td>{{employees.birthDate}}</td>
+			<td>{{employees.firstName}}</td>
+			<td>{{employees.lastName}}</td>
+			<td>{{employees.gender}}</td>
+			<td>{{employees.hireDate}}</td>
+		</tr>
+	{% endif %}
+</table>
