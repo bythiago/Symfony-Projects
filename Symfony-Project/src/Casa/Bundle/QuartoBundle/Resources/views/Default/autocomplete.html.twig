@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Autocomplete - Remote JSONP datasource</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <style>
+  </style>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#birds" ).autocomplete({
+      source: function( request, response ) {
+        console.log(request);
+        $.ajax( {
+        	type: "POST",
+        	url: "http://localhost/Symfony/Symfony-Project/web/app_dev.php/listaJson",
+          dataType: "json",
+          data: {
+            nome: request.term
+          },
+          success: function (data) {
+          	console.log(data);
+            response($.map(data, function (item) {
+              return {
+                label: item.nome,
+                value: item.nome
+              };
+            }));
+          }
+        } );
+      },
+      minLength: 1
+    } );
+  } );
+  </script>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 py-5">
+    	<h2>Autocomplete</h2>
+      <div class="form-group">
+        <label for="birds">Birds: </label>
+        <input id="birds" class="form-control">
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
