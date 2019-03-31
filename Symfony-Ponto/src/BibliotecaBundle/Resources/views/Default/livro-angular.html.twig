@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="col-md-6">
-			<h1>Editora</h1>
+			<h1>Editora {{'{{livros.length}}'}}</h1>
 
 			<table id="data-editora" class="table table-bordered table-hover">
 				<thead>
@@ -104,8 +104,8 @@
       
       livroApp.livroRequest = function(){
         var request = {
-         method: 'POST',
-         url: 'http://127.0.0.1/Workspace/Symfony/symfony-ponto/web/app_dev.php/livros/lista',
+         method: 'GET',
+         url: 'http://127.0.0.1:8000/livros/lista',
          headers: {
            'Access-Control-Allow-Origin': '*'
          },
@@ -114,15 +114,10 @@
         $http(request).then(function(response, status){
           $scope.livros = response.data;
 
-          if($scope.livros.length >= 4){
-          	$scope.show = true;
-          } else {
-          	$scope.show = false;
-          }
+          ($scope.livros.length >= 4) ? $scope.show = true : $scope.show = false;
 
-          console.log($scope.livros.length);
-        }, function(response, status){
-          console.log(status);
+        }, function(response){
+          console.log(response.status);
         });
 
       }
