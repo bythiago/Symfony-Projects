@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Upvotes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Answerid</th>
+                <th>Userid</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Deletedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for upvote in upvotes %}
+            <tr>
+                <td><a href="{{ path('upvotes_show', { 'id': upvote.id }) }}">{{ upvote.id }}</a></td>
+                <td>{{ upvote.answerId }}</td>
+                <td>{{ upvote.userId }}</td>
+                <td>{% if upvote.createdAt %}{{ upvote.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if upvote.updatedAt %}{{ upvote.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if upvote.deletedAt %}{{ upvote.deletedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('upvotes_show', { 'id': upvote.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('upvotes_edit', { 'id': upvote.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('upvotes_new') }}">Create a new upvote</a>
+        </li>
+    </ul>
+{% endblock %}

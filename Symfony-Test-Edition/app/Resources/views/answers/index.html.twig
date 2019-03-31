@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Answers list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Answer</th>
+                <th>Userid</th>
+                <th>Questionid</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Deletedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for answer in answers %}
+            <tr>
+                <td><a href="{{ path('answers_show', { 'id': answer.id }) }}">{{ answer.id }}</a></td>
+                <td>{{ answer.answer }}</td>
+                <td>{{ answer.userId }}</td>
+                <td>{{ answer.questionId }}</td>
+                <td>{% if answer.createdAt %}{{ answer.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if answer.updatedAt %}{{ answer.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if answer.deletedAt %}{{ answer.deletedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('answers_show', { 'id': answer.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('answers_edit', { 'id': answer.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('answers_new') }}">Create a new answer</a>
+        </li>
+    </ul>
+{% endblock %}

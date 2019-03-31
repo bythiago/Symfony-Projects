@@ -1,0 +1,30 @@
+{# templates/blog/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}My cool blog posts{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Livros</h1>
+
+			<table class="table table-bordered table-hover">
+				<tr>
+					<td>#</td>
+					<td>Nome</td>
+				</tr>
+			    {% for livro in livros %}
+			    	<tr>
+			    		<td>{{ livro.id|e }}</td>
+			        	<td>
+			        		<a href="excluir/{{ livro.id }}">{{ livro.nome|e }}</td></a>
+			        	</tr>
+			    {% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Blogcomments list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Author</th>
+                <th>Content</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for blogComment in blogComments %}
+            <tr>
+                <td><a href="{{ path('blogcomment_show', { 'id': blogComment.id }) }}">{{ blogComment.id }}</a></td>
+                <td>{{ blogComment.author }}</td>
+                <td>{{ blogComment.content }}</td>
+                <td>{% if blogComment.createdAt %}{{ blogComment.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('blogcomment_show', { 'id': blogComment.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('blogcomment_edit', { 'id': blogComment.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('blogcomment_new') }}">Create a new blogComment</a>
+        </li>
+    </ul>
+{% endblock %}

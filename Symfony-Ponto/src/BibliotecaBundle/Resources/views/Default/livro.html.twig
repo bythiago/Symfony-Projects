@@ -1,0 +1,122 @@
+{# templates/blog/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}My cool blog posts{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<h1>Livros</h1>
+
+			<table id="data-livro" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Editora</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+
+		<div class="col-md-6">
+			<h1>Editora</h1>
+
+			<table id="data-editora" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Editora</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+
+
+		</div>
+	</div>
+		<div class="row">
+		<div class="col-md-6">
+			<h1>Categoria</h1>
+
+			<table id="data-categoria" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Editora</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+
+		<div class="col-md-6">
+			<h1>Livraria</h1>
+
+			<table id="data-livraria" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Editora</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+var livro = function(){
+
+	var _createTable = function(_url, _table){
+		$.getJSON(_url, function( data ) {
+		  var items = [];
+		  var i = 0;
+		  
+		$.each( data, function( key, val ) {
+			items.push( "<tr><td id='" + key + "'>" + val.id + "</td>" );
+			items.push( "<td id='" + key + "'>" + val.nome + "</td>" );
+			items.push( "<td id='" + key + "'>" + val.editora.nome + "</td></tr>" );
+		});
+
+		$(_table + " tbody").html(items.join(''));
+
+		});
+	}
+
+	var _setInterval = function(){
+		setInterval(function(){
+			_createTable('http://127.0.0.1:8000/livros/lista', "#data-livro");
+			_createTable('http://127.0.0.1:8000/livros/lista', "#data-editora");
+			_createTable('http://127.0.0.1:8000/livros/lista', "#data-categoria");
+			_createTable('http://127.0.0.1:8000/livros/lista', "#data-livraria");
+		}, 1000);
+	}
+
+	this.start = function(){
+		console.log('started with success');
+		_setInterval();
+	}
+
+}
+
+let _livro = new livro();
+
+//started project
+_livro.start();
+
+});
+</script>
+
+{% endblock %}
