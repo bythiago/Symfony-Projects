@@ -1,0 +1,141 @@
+{# templates/blog/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}My cool blog posts{% endblock %}
+
+{% block body %}
+
+<div class="container" ng-app="livroApp" ng-controller="livroController as livroList">
+	<div class="row">
+		<div class="col-md-6">
+			<h1>Livros</h1>
+
+			<table id="data-livro" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Editora</th>
+					</tr>
+				</thead>
+				<tbody>
+				  <tr ng-repeat="livro in livros">
+				    <td>{{'{{livro.id}}'}}</td>
+				    <td>{{'{{livro.nome}}'}}</td>
+				    <td>{{'{{livro.editora.nome}}'}}</td>
+				  </tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="col-md-6">
+			<h1>Editora</h1>
+
+			<table id="data-editora" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Editora</th>
+					</tr>
+				</thead>
+				<tbody>
+				  <tr ng-repeat="livro in livros">
+				    <td>{{'{{livro.id}}'}}</td>
+				    <td>{{'{{livro.nome}}'}}</td>
+				    <td>{{'{{livro.editora.nome}}'}}</td>
+				  </tr>
+				</tbody>
+			</table>
+
+
+		</div>
+	</div>
+	<div class="row" ng-if="show">
+		<div class="col-md-6">
+			<h1>Categoria</h1>
+
+			<table id="data-categoria" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Editora</th>
+					</tr>
+				</thead>
+				<tbody>
+				  <tr ng-repeat="livro in livros">
+				    <td>{{'{{livro.id}}'}}</td>
+				    <td>{{'{{livro.nome}}'}}</td>
+				    <td>{{'{{livro.editora.nome}}'}}</td>
+				  </tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="col-md-6">
+			<h1>Livraria</h1>
+
+			<table id="data-livraria" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Editora</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="livro in livros">
+				    <td>{{'{{livro.id}}'}}</td>
+				    <td>{{'{{livro.nome}}'}}</td>
+				    <td>{{'{{livro.editora.nome}}'}}</td>
+				  </tr>
+				</tbody>
+			</table>
+
+
+		</div>
+	</div>
+</div>
+
+  <script type="text/javascript">
+    angular.module('livroApp', []).controller('livroController', function($http, $scope) {
+      var livroApp = this;
+      
+      livroApp.livroRequest = function(){
+        var request = {
+         method: 'POST',
+         url: 'http://127.0.0.1/Workspace/Symfony/symfony-ponto/web/app_dev.php/livros/lista',
+         headers: {
+           'Access-Control-Allow-Origin': '*'
+         },
+        }
+
+        $http(request).then(function(response, status){
+          $scope.livros = response.data;
+
+          if($scope.livros.length >= 4){
+          	$scope.show = true;
+          } else {
+          	$scope.show = false;
+          }
+
+          console.log($scope.livros.length);
+        }, function(response, status){
+          console.log(status);
+        });
+
+      }
+
+      livroApp.init = function(){
+        setInterval(function(){
+          livroApp.livroRequest();
+        }, 1000);
+      }
+
+      livroApp.init();
+      
+    });
+  </script>
+
+{% endblock %}

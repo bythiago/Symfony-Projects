@@ -82,8 +82,8 @@ class DefaultController extends Controller
     	$em->remove($livro);
     	$em->flush();
 
-    	return $this->redirect('livro');
-    	//return new Response($id);
+    	//return $this->redirect('livro');
+    	return new Response('Deleted with success');
     }
 
 	/**
@@ -91,8 +91,11 @@ class DefaultController extends Controller
 	*/
     public function livrosListaAction(){
 
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: *");
+
     	return new Response(
-    		$this->toJson($this->getDoctrine()->getRepository('BibliotecaBundle:Livro')->findAll())
+    		$this->toJson($this->getDoctrine()->getRepository('BibliotecaBundle:Livro')->findFiveBooks(4))
     	);
     }
 
@@ -103,13 +106,20 @@ class DefaultController extends Controller
     	return $this->render("BibliotecaBundle:Default:livro.html.twig");
     }
 
+    /**
+     * @Route("/livros-angular/index", name="livros_angular_index")
+     */
+    public function livrosAngularTableAction(){
+        return $this->render("BibliotecaBundle:Default:livro-angular.html.twig");
+    }
+
     private function toJson($object){
-    	$encoders = [new XmlEncoder(), new JsonEncoder()];
-		$normalizers = [new ObjectNormalizer()];
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
 
-		$serializer = new Serializer($normalizers, $encoders);
+        $serializer = new Serializer($normalizers, $encoders);
 
-    	return $serializer->serialize($object, 'json');
+        return $serializer->serialize($object, 'json');
     }
 
 }

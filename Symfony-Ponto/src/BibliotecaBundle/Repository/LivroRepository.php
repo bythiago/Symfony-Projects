@@ -10,4 +10,12 @@ namespace BibliotecaBundle\Repository;
  */
 class LivroRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findFiveBooks($limit){
+		$qb = $this->createQueryBuilder('l')
+		->add('orderBy', 'l.id DESC')
+		->setMaxResults($limit)
+		->getQuery();
+
+        return $qb->execute();	
+	}
 }
