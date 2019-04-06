@@ -17,6 +17,14 @@ use AppBundle\Entity\LivroCategoria;
 
 class DefaultController extends Controller
 {
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function homeAction()
+    {
+        print 'haerhaehr';
+        exit;
+    }
 	/**
      * @Route("/usuario-emprestimo", name="usuario-emprestimo")
      */
