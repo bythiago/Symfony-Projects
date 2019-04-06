@@ -1,11 +1,11 @@
 Symfony Projects Edition
 ========================
 
-> Comandos que auxiliam no desenvolvimento
+> How to Generate Entities from an Existing Database
 
 ``` bash
-php app/console doctrine:mapping:import "App\Entity" annotation --path=src/Entity
-php app/console generate:doctrine:entities AppBundle:BlogPost
+php app/console doctrine:mapping:import AppBundle annotation
+php app/console doctrine:generate:entities AppBundle
 php app/console generate:doctrine:crud AppBundle:BlogPost
 ```
 
