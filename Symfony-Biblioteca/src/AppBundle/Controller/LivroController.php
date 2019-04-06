@@ -20,13 +20,10 @@ class LivroController extends Controller
      */
     public function createAction()
     {
-
-        exit;
-
         $em    = $this->getDoctrine()->getManager();
         $livro = new Livro();
 
-        $livro->setNome('Guerra Civil');
+        $livro->setNome('O Caçador de Pipas');
         $livro->setDescricao('Your application is full of useful objects: a "Mailer" object might help you send emails while another object might help you save things to the database.');
         $livro->setLancamento('01-01-2001');
         $livro->setIdEditora($this->findEditora());
