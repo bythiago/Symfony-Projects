@@ -14,7 +14,7 @@ class AutorController extends Controller
      */
     public function createAction()
     {
-        $autores = array('J. K. Rowling', 'Stephen King', 'Paulo Coelho');
+        $autores = array('Fiódor Dostoiévski', 'TCD', 'Augusto Cury');
 
         $em = $this->getDoctrine()->getManager();
         $autor = new Autor();
