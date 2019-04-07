@@ -23,7 +23,7 @@ class LivroController extends Controller
         $em    = $this->getDoctrine()->getManager();
         $livro = new Livro();
 
-        $livro->setNome('O Caçador de Pipas');
+        $livro->setNome('O Querido John');
         $livro->setDescricao('Your application is full of useful objects: a "Mailer" object might help you send emails while another object might help you save things to the database.');
         $livro->setLancamento('01-01-2001');
         $livro->setIdEditora($this->findEditora());
@@ -36,8 +36,6 @@ class LivroController extends Controller
             $livroCategoria->setIdLivro($livro);
             $livroCategoria->setIdCategoria($this->findCategoria());
             $em->persist($livroCategoria);
-            $em->flush();
-
         }
 
         $em->flush();

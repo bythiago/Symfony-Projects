@@ -1,17 +1,27 @@
 <?php
 
 namespace AppBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Usuario
  *
- * @ORM\Table(name="usuario")
+ * @ORM\Table(name="USUARIO")
  * @ORM\Entity
  */
 class Usuario
 {
+
+    /**
+     * Usuario constructor.
+     */
+    public function __construct()
+    {
+        $this->setDataCadastro(date('d-m-Y'));
+    }
+
     /**
      * @var integer
      *
@@ -23,7 +33,7 @@ class Usuario
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="NOME", type="string", length=40, nullable=false)
      */
     private $nome;
@@ -70,7 +80,12 @@ class Usuario
      */
     private $status;
 
-
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="DATA_CADASTRO", type="datetime", nullable=false)
+     */
+    private $dataCadastro;
 
     /**
      * Get id
@@ -249,4 +264,24 @@ class Usuario
     {
         return $this->status;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDataCadastro()
+    {
+        return $this->dataCadastro;
+    }
+
+    /**
+     * @param \DateTime $dataCadastro
+     * @return Usuario
+     */
+    public function setDataCadastro($dataCadastro)
+    {
+        $this->dataCadastro = \DateTime::createFromFormat('d-m-Y', $dataCadastro);
+        return $this;
+    }
+
+
 }
