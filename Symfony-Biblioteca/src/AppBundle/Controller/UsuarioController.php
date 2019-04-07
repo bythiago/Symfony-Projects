@@ -31,7 +31,7 @@ class UsuarioController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        if ($request->isMethod('POST')) {
+        if (($request->isMethod('POST')) && ($this->isCsrfTokenValid('token', $request->get('_token')))) {
 
             $usuario->setNome($request->get('nome'));
             $usuario->setSexo($request->get('sexo'));
