@@ -24,8 +24,8 @@ class UsuarioService
             'Great work! Keep going!'
         );
 
-        //return $messages[array_rand($messages)];
+        return $messages[array_rand($messages)];
 
-        $this->logger->info($messages[array_rand($messages)]);
+        //$this->logger->info($messages[array_rand($messages)]);
     }
 }

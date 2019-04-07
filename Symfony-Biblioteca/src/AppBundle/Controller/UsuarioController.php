@@ -46,9 +46,9 @@ class UsuarioController extends Controller
             if (count($errors) > 0) {
                 return $this->render('@App/Usuario/index.html.twig', ['errors' => $errors]);
             } else {
-                //$em->persist($usuario);
-                //$em->flush();
-                //$em->clear();
+                $em->persist($usuario);
+                $em->flush();
+                $em->clear();
 
                 return $this->redirect('/usuario/create');
             }

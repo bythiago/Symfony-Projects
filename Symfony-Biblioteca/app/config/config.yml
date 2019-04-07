@@ -65,12 +65,15 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-# app/config/config.yml
+# EasyAuditBundle
 xiidea_easy_audit:
     #resolver: xiidea.easy_audit.default_event_resolver                           #Optional
     audit_log_class : AppBundle\Entity\AuditLog                  #Required
     #doctrine_event_resolver : xiidea.easy_audit.default_doctrine_event_resolver  #Optional
-    #default_logger : true                                                        #Optional
+    default_logger : true                                                        #Optional
+
+    #custom.event_resolver.service
+    doctrine_event_resolver : custom.event_resolver.service
 
     #user property to use as actor of an event
     #valid value will be any valid property of your user class
@@ -92,13 +95,19 @@ xiidea_easy_audit:
     #custom_resolvers :
     #       security.interactive_login : user.event_resolver
     #       security.authentication.failure : user.event_resolver
+    custom_resolvers :
+        security.interactive_login : custom.event_resolver.service
+        fos_user.security.implicit_login : custom.event_resolver.service
 
-    #logger_channel:
-    #    xiidea.easy_audit.logger.service: ["info", "debug"]
-    #    file.logger: ["!info", "!debug"]
+    logger_channel:
+        xiidea.easy_audit.logger.service: ["info", "debug"]
+        file.logger: ["!info", "!debug"]
 
     #Custom Event Resolver Service
 services:
+    custom.event_resolver.service:
+        class:  AppBundle\Resolver\CustomEventResolver
+        arguments: ['@doctrine.orm.entity_manager']
     #user.event_resolver:
     #     class: Xiidea\EasyAuditBundle\Resolver\UserEventResolver
     #     calls:
