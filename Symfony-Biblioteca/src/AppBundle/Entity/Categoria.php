@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Xiidea\EasyAuditBundle\Annotation\SubscribeDoctrineEvents;
 
 /**
  * Categoria
  *
  * @ORM\Table(name="CATEGORIA")
  * @ORM\Entity
+ * @SubscribeDoctrineEvents(events = "updated, created")
  */
 class Categoria
 {

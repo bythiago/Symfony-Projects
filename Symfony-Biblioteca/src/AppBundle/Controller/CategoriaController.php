@@ -18,7 +18,7 @@ class CategoriaController extends Controller
      */
     public function createAction()
     {
-        $categorias = array('ROMANCE', 'AÇÃO', 'POLICIAL', 'AUTO AJUDA');
+        $categorias = array('FICÇÃO', 'COMEDIA', 'TERROR');
 
         $em = $this->getDoctrine()->getManager();
         $categoria = new Categoria();

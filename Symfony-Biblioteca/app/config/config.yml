@@ -64,3 +64,41 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+# app/config/config.yml
+xiidea_easy_audit:
+    #resolver: xiidea.easy_audit.default_event_resolver                           #Optional
+    audit_log_class : AppBundle\Entity\AuditLog                  #Required
+    #doctrine_event_resolver : xiidea.easy_audit.default_doctrine_event_resolver  #Optional
+    #default_logger : true                                                        #Optional
+
+    #user property to use as actor of an event
+    #valid value will be any valid property of your user class
+    user_property : ~ # or username                            #Optional
+
+    #List of doctrine entity:event you wish to track or set to false to disable logs for doctrine events
+    # valid events are = [created, updated, deleted]
+    doctrine_objects :                                              #Optional
+          AppBundle\Entity\Categoria: []
+    #     MyProject\Bundle\MyBundle\Entity\MyEntity : [created, updated, deleted]
+    #     MyProject\Bundle\MyBundle\Entity\MyEntity2 : []
+
+    #List all events you want to track  (Optional from v1.2.1 you can now use subscriber to define it)
+    events :                                                   #Optional
+        - security.interactive_login
+
+    #List all custom resolver for event
+    #custom_resolvers :
+    #       security.interactive_login : user.event_resolver
+    #       security.authentication.failure : user.event_resolver
+
+    #logger_channel:
+    #    xiidea.easy_audit.logger.service: ["info", "debug"]
+    #    file.logger: ["!info", "!debug"]
+
+    #Custom Event Resolver Service
+services:
+    #user.event_resolver:
+    #     class: Xiidea\EasyAuditBundle\Resolver\UserEventResolver
+    #     calls:
+    #        - [ setContainer,[ @service_container ] ]
