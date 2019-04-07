@@ -80,6 +80,7 @@ xiidea_easy_audit:
     # valid events are = [created, updated, deleted]
     doctrine_objects :                                              #Optional
           AppBundle\Entity\Categoria: []
+          AppBundle\Entity\Usuario: []
     #     MyProject\Bundle\MyBundle\Entity\MyEntity : [created, updated, deleted]
     #     MyProject\Bundle\MyBundle\Entity\MyEntity2 : []
 

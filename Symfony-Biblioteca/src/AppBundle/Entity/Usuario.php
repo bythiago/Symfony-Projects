@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Xiidea\EasyAuditBundle\Annotation\SubscribeDoctrineEvents;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="USUARIO")
  * @ORM\Entity
+ * @SubscribeDoctrineEvents(events = "updated, created")
  */
 class Usuario
 {
