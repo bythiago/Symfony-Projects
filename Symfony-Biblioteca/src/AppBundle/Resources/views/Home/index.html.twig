@@ -1,0 +1,108 @@
+{# templates/blog/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}My cool blog posts{% endblock %}
+
+{% block body %}
+    <div class="row py-5" ng-app="LivroApp">
+        <div class="col-12 col-md-8 offset-md-2">
+            <h2>Biblioteca Popular</h2>
+        </div>
+        <div class="col-12 col-md-8 offset-md-2">
+            <div ng-controller="LivroController as LivroList">
+                <table class="table table-bordered table-sm table-hover">
+                    <thead>
+                    <tr class="table-success">
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Autor</th>
+                        <th>Editora</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="livro in livros">
+                        <td>{{ '{{livro.id}}' }}</td>
+                        <td>{{ '{{livro.nome}}' }}</td>
+                        <td>{{ '{{livro.descricao}}' }}</td>
+                        <td>{{ '{{livro.idAutor.nome}}' }}</td>
+                        <td>{{ '{{livro.idEditora.nome}}' }}</td>
+                        <td><!-- Button trigger modal -->
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-success"
+                                    data-toggle="modal"
+                                    data-target="#livro{{ '{{livro.id}}' }}"
+                            >
+                                Emprestimo
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="livro{{ '{{livro.id}}' }}" tabindex="-1" role="dialog" aria-labelledby="livro" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                {{ '{{livro.idAutor.nome}}' }} - {{ '{{livro.nome}}' }}
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>{{ '{{livro.nome}}' }}</p>
+                                            <p>{{ '{{livro.descricao}}' }}</p>
+                                            <p>{{ '{{livro.idAutor.nome}}' }}</p>
+                                            <p>{{ '{{livro.idEditora.nome}}' }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                            <button type="button" class="btn btn-primary">Pegar por Emprestimo</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        angular.module('LivroApp', [])
+            .controller('LivroController', function ($http, $scope) {
+                var livroList = this;
+
+                livroList.listaLivros = function () {
+                    $http({
+                        method: 'GET',
+                        url: 'http://127.0.0.1:8000/livro/list/all'
+                    }).then(function (response) {
+                        $scope.livros = response.data;
+                        console.log(response.data);
+
+                    }, function (response) {
+                        console.log(response.status);
+                    });
+                }
+
+                livroList.setInterval = function () {
+                    setInterval(function () {
+                        livroList.listaLivros();
+                    }, 1000 * 60);
+                }
+
+                livroList.start = function () {
+                    livroList.listaLivros();
+                    livroList.setInterval();
+                }
+
+                //initializing the project
+                livroList.start();
+
+            });
+    </script>
+{% endblock %}

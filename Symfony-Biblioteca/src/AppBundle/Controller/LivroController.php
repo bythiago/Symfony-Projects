@@ -8,6 +8,10 @@ use AppBundle\Entity\LivroCategoria;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class LivroController
@@ -45,6 +49,18 @@ class LivroController extends Controller
     }
 
     /**
+     * @Route("/livro/list/all", name="app_livro_list_all")
+     */
+    public function getLivros(){
+
+        $livros = $this->getDoctrine()->getRepository('AppBundle:Livro')->findAll();
+        $response = new Response($this->serializer($livros), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
      * @return object
      */
     private function findEditora(){
@@ -63,6 +79,20 @@ class LivroController extends Controller
      */
     private function findCategoria(){
         return $this->getDoctrine()->getRepository('AppBundle:Categoria')->find(rand(1, 3));
+    }
+
+    /**
+     * @param $object
+     * @param string $type
+     * @return mixed
+     */
+    private function serializer($object, $type = 'json'){
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        return $serializer->serialize($object, $type);
+
     }
 
 }
