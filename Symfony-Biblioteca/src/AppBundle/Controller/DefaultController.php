@@ -48,7 +48,6 @@ class DefaultController extends Controller
             ]
         ]);  
 
-        print '<pre>';
         print_r($response);
         exit;
     }
