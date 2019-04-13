@@ -49,6 +49,6 @@ class DefaultController extends Controller
         ]);  
 
         print_r($response);
-        exit('fix');
+        exit;
     }
 }
