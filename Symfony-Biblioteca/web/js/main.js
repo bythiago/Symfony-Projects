@@ -28,4 +28,20 @@ angular.module('LivroApp', []).controller('LivroController', function ($http, $s
     //initializing the project
     livroList.start();
 
+}).controller('UsuarioController', function ($scope, $http) {
+    $scope.getCep = function(cep){
+
+        if((cep.replace('-', '').length == 8) && angular.isNumber(parseInt(cep.replace('-', '')))){
+            $http.get('https://viacep.com.br/ws/'+cep.replace('-', '')+'/json/')
+            .then(function(response){
+                $scope.data = response.data;
+                if($scope.data.erro){
+                    alert('O CEP ' + cep + ' é inválido');
+                }
+            }, function(response){
+                delete $scope.data;
+                alert(response.status);
+            });
+        }
+    }
 });

@@ -57,4 +57,21 @@ class UsuarioController extends Controller
 
         return $this->render('@App/Usuario/index.html.twig', ['errors' => null]);
     }
+
+    /**
+     * @Route("/usuario/read", name="app_usuario_read")
+     */
+
+    public function readUsuarios(){
+
+        print '<pre>';
+        $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->findBy(array('id' => 1));
+
+
+        print_r($usuario[0]->getNascimento()->format('d/m/Y'));
+        //print_r(\DateTime::createFromFormat('d-m-Y', $usuario[0]->getNascimento()));
+
+
+        exit;
+    }
 }

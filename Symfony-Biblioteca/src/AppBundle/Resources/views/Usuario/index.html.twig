@@ -4,8 +4,8 @@
 {% block title %}My cool blog posts{% endblock %}
 
 {% block body %}
-    <div class="row py-53">
-        <div class="col-12 col-md-8 offset-md-2">
+    <div class="row" ng-app="LivroApp">
+        <div class="col-12 col-md-8 offset-md-2 py-5" ng-controller="UsuarioController as Usuario">
             <h2>Criar Usuário</h2>
             <form action="{{ path('app_usuario_create') }}" method="POST">
                 <div class="form-group">
@@ -28,7 +28,27 @@
 
                 <div class="form-group">
                     <label>CEP:</label>
-                    <input name="cep" type="text" class="form-control" required>
+                    <input name="cep" type="text" class="form-control" ng-model="cep" ng-keyup="getCep(cep)" maxlength="9" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Logradouro:</label>
+                    <input class="form-control" ng-value="data.logradouro">
+                </div>
+
+                <div class="form-group">
+                    <label>Bairro:</label>
+                    <input class="form-control" ng-value="data.bairro">
+                </div>
+
+                <div class="form-group">
+                    <label>Complemento:</label>
+                    <input class="form-control" ng-value="data.complemento">
+                </div>
+
+                <div class="form-group">
+                    <label>UF:</label>
+                    <input class="form-control" ng-value="data.uf">
                 </div>
 
                 <div class="form-group">
@@ -45,4 +65,8 @@
             </form>
         </div>
     </div>
+
+    {% block javascripts %}
+        <script src="{{ asset('js/main.js') }}"></script>
+    {% endblock %}
 {% endblock %}
