@@ -33,5 +33,23 @@ class DefaultController extends Controller
 
         return new Response('Categoria atualizado com sucesso');
     }
-  
+
+    /**
+     * @Route("/correios/{nCdServico}/{sCepOrigem}/{sCepDestino}", name="correios")
+     */
+    public function correiosAction($nCdServico, $sCepOrigem, $sCepDestino){
+        $client = new \SoapClient('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?wsdl');
+        
+        $response = $client->__soapCall('CalcPrazo', [
+            'CalcPrazo' => [
+                'nCdServico' => $nCdServico,
+                'sCepOrigem' => $sCepOrigem,
+                'sCepDestino' => $sCepDestino
+            ]
+        ]);  
+
+        print '<pre>';
+        var_dump($response);
+        exit;
+    }
 }
