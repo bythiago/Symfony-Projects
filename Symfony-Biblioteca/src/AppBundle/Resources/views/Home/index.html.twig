@@ -30,39 +30,14 @@
                         <td>{{ '{{livro.idEditora.nome}}' }}</td>
                         <td><!-- Button trigger modal -->
                             <button
-                                    type="button"
-                                    class="btn btn-outline-success"
-                                    data-toggle="modal"
-                                    data-target="#livro{{ '{{livro.id}}' }}"
+                                type="button"
+                                class="btn btn-outline-success"
+                                data-toggle="modal"
+                                data-target="#livro{{ '{{livro.id}}' }}"
                             >
                                 Emprestimo
                             </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="livro{{ '{{livro.id}}' }}" tabindex="-1" role="dialog" aria-labelledby="livro" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">
-                                                {{ '{{livro.idAutor.nome}}' }} - {{ '{{livro.nome}}' }}
-                                            </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>{{ '{{livro.nome}}' }}</p>
-                                            <p>{{ '{{livro.descricao}}' }}</p>
-                                            <p>{{ '{{livro.idAutor.nome}}' }}</p>
-                                            <p>{{ '{{livro.idEditora.nome}}' }}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                            <button type="button" class="btn btn-primary">Pegar por Emprestimo</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {{ include('AppBundle:Home:modal.html.twig') }}
                         </td>
                     </tr>
                     </tbody>
@@ -71,38 +46,7 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        angular.module('LivroApp', [])
-            .controller('LivroController', function ($http, $scope) {
-                var livroList = this;
-
-                livroList.listaLivros = function () {
-                    $http({
-                        method: 'GET',
-                        url: 'http://127.0.0.1:8000/livro/list/all'
-                    }).then(function (response) {
-                        $scope.livros = response.data;
-                        console.log(response.data);
-
-                    }, function (response) {
-                        console.log(response.status);
-                    });
-                }
-
-                livroList.setInterval = function () {
-                    setInterval(function () {
-                        livroList.listaLivros();
-                    }, 1000 * 60);
-                }
-
-                livroList.start = function () {
-                    livroList.listaLivros();
-                    livroList.setInterval();
-                }
-
-                //initializing the project
-                livroList.start();
-
-            });
-    </script>
+    {% block javascripts %}
+        <script src="{{ asset('js/main.js') }}"></script>
+    {% endblock %}
 {% endblock %}
