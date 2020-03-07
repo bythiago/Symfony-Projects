@@ -34,22 +34,22 @@ class DefaultController extends Controller
         return new Response('Categoria atualizado com sucesso');
     }
 
-        /**
-     * @Route("/livros1", name="livros1")
+    /**
+     * @Route("/correios/{nCdServico}/{sCepOrigem}/{sCepDestino}", name="correios")
      */
-    public function livrosAction(){
-        $livros = $this->getDoctrine()->getRepository('AppBundle:Livro')->findAll();
+    public function correiosAction($nCdServico, $sCepOrigem, $sCepDestino){
+        $client = new \SoapClient('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?wsdl');
+        
+        $response = $client->__soapCall('CalcPrazo', [
+            'CalcPrazo' => [
+                'nCdServico' => $nCdServico,
+                'sCepOrigem' => $sCepOrigem,
+                'sCepDestino' => $sCepDestino
+            ]
+        ]);  
 
         print '<pre>';
-        foreach ($livros as $livro) {
-            if($livro->hasAutor()){
-                var_dump($livro->getIdAutor()->getNome());                
-            }
-        }
-
-        //var_dump($aaa );
-
+        var_dump($response);
         exit;
     }
-  
 }
