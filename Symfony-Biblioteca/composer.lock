@@ -1549,7 +1549,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -2288,16 +2288,16 @@
         },
         {
             "name": "xiidea/easy-audit",
-            "version": "dev-master",
+            "version": "1.4.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xiidea/EasyAuditBundle.git",
-                "reference": "b757896d7c6ece5c86177d9c9c84eb94ce3aedf4"
+                "reference": "4e035c662e0c45b61fe575d17aa1b005cd15ae90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xiidea/EasyAuditBundle/zipball/b757896d7c6ece5c86177d9c9c84eb94ce3aedf4",
-                "reference": "b757896d7c6ece5c86177d9c9c84eb94ce3aedf4",
+                "url": "https://api.github.com/repos/xiidea/EasyAuditBundle/zipball/4e035c662e0c45b61fe575d17aa1b005cd15ae90",
+                "reference": "4e035c662e0c45b61fe575d17aa1b005cd15ae90",
                 "shasum": ""
             },
             "require": {
@@ -2349,7 +2349,7 @@
                 "symfony3",
                 "symfony4"
             ],
-            "time": "2019-01-09T08:12:08+00:00"
+            "time": "2019-06-19T01:39:11+00:00"
         }
     ],
     "packages-dev": [
@@ -2405,20 +2405,21 @@
                 }
             ],
             "description": "This bundle generates code for you",
+            "abandoned": "symfony/maker-bundle",
             "time": "2017-12-07T15:36:41+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v2.8.49",
+            "version": "v2.8.50",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "2a71753e11f4094a4ccd0acf5e9f6a962a1a2787"
+                "reference": "4aa44ecbfb5e2c50797d17756da11c93a8a6974f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/2a71753e11f4094a4ccd0acf5e9f6a962a1a2787",
-                "reference": "2a71753e11f4094a4ccd0acf5e9f6a962a1a2787",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/4aa44ecbfb5e2c50797d17756da11c93a8a6974f",
+                "reference": "4aa44ecbfb5e2c50797d17756da11c93a8a6974f",
                 "shasum": ""
             },
             "require": {
@@ -2463,7 +2464,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2018-11-12T18:05:42+00:00"
+            "time": "2019-04-16T10:01:26+00:00"
         }
     ],
     "aliases": [],
