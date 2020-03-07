@@ -1,0 +1,57 @@
+<!doctype html>
+<html ng-app="PessoaApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+  </head>
+  <body>
+    <h2>Pessoas</h2>
+    <div ng-controller="PessoaController as PessoaList">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pessoa in pessoas">
+                    <td>{{ '{{pessoa.id}}' }}</td>
+                    <td>{{ '{{pessoa.nome}}' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    angular.module('PessoaApp', [])
+    .controller('PessoaController', function($http, $scope) {
+        var pessoaList = this;
+
+        pessoaList.listaPessoas = function(){
+            $http({
+              method: 'GET',
+              url: 'http://127.0.0.1:8000/pessoa/show'
+            }).then(function(response){
+                $scope.pessoas = response.data;
+            }, function(response) {
+                console.log(response.status);
+            });
+        }
+
+        pessoaList.setInterval = function(){
+            setInterval(function(){
+                pessoaList.listaPessoas();
+            }, 1000);
+        }
+
+        pessoaList.start = function(){
+            pessoaList.setInterval();
+        }
+
+        //initializing the project
+        pessoaList.start();
+        
+    });
+  </script>
+</html>

@@ -33,5 +33,23 @@ class DefaultController extends Controller
 
         return new Response('Categoria atualizado com sucesso');
     }
+
+        /**
+     * @Route("/livros1", name="livros1")
+     */
+    public function livrosAction(){
+        $livros = $this->getDoctrine()->getRepository('AppBundle:Livro')->findAll();
+
+        print '<pre>';
+        foreach ($livros as $livro) {
+            if($livro->hasAutor()){
+                var_dump($livro->getIdAutor()->getNome());                
+            }
+        }
+
+        //var_dump($aaa );
+
+        exit;
+    }
   
 }

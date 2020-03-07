@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Livro
@@ -55,7 +56,7 @@ class Livro
     /**
      * @var \Autor
      *
-     * @ORM\ManyToOne(targetEntity="Autor")
+     * @ORM\ManyToOne(targetEntity="Autor", fetch="LAZY")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ID_AUTOR", referencedColumnName="ID")
      * })
@@ -192,5 +193,23 @@ class Livro
     public function getIdAutor()
     {
         return $this->idAutor;
+    }
+
+    public function hasAutor (){
+
+        if(empty($this->idAutor)){
+            return false;
+        }
+
+        return true;
+    }
+
+    public function hasAutorWithArray (){
+        if(empty((array)$this->idAutor)){
+            return false;
+        } else {
+            return true;
+        }
+       
     }
 }
